@@ -1,0 +1,18 @@
+.login{
+    height: 300px;
+    width: 300px;
+    margin: 90px auto 0 auto;
+    background: black;
+    position: relative;
+}
+
+.mainDiv{
+    height: 400px;
+    width: 100%;
+    /* background: yellow; */
+    position: absolute;
+}
+
+.labelClr{
+    color: white;
+}
