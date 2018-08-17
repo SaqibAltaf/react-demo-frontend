@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import './Login.css';
+import axios from 'axios';
 
 export default class Login extends Component{
     constructor(){
@@ -17,7 +18,22 @@ export default class Login extends Component{
     handleSubmit(e){
         e.preventDefault();
         this.setState({email:this.refs.email.value, password:this.refs.password.value})   
-             
+        const emails  = this.state.email;
+        const passwords  = this.state.password;
+
+        console.log(emails, passwords)
+        const user = {
+            email: emails,
+            password: passwords
+          };
+
+          console.log(user)
+          let headers = new Headers({ 'Content-Type': 'application/json' });
+
+          axios.post(`http://localhost:8000/api/user/userLogin`, { user }, headers)
+            .then(res => {
+              console.log(res);
+            })
     }
 
     render(){
