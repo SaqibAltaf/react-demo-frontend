@@ -6,16 +6,7 @@ import Dashboard from "./../containers/dashboard/dashboard";
 import { Redirect } from 'react-router';
 import {PrivateRoute} from './PrivateRoute';
 
-const requireAuth = () => {
-  let token = localStorage.getItem("token");
-  console.log("yes")
 
-  if (token) {   
-    return true;
-  }else{
-    return false;
-  }
-}
 
 export default () => 
 
