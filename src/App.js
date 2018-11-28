@@ -1,17 +1,28 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React, { Component, lazy, Suspense } from 'react';
+
 import './App.css';
-import Login from './views/Login/Login';
+import Routes  from './Routes/routes';
+
+// import User from './containers/Users/User';
+// const User  = lazy(() => import('./containers/Users/User'));
+
 class App extends Component {
+    constructor(props) {
+      super(props);
+      this.state = { 
+       }
+    }
+    
+   
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-       <Login />
-      </div>
+      <React.Fragment>
+        
+      <Routes />
+      </React.Fragment>
+    
+      
+     
     );
   }
 }
