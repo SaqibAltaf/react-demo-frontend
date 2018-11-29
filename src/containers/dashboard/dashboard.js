@@ -14,6 +14,10 @@ class Dashboard extends Component {
         localStorage.clear();
         this.props.history.push('/Login')
     }
+    postRecipe(){
+        console.log("recipe")
+        this.props.history.push("/recipe");
+    }
     render() { 
         
 
@@ -25,6 +29,9 @@ class Dashboard extends Component {
                 Logout
             </button>
             <h1> Dashboard</h1>
+            <div className="body">
+            <button className="btn btn-success" onClick= {() => this.postRecipe()}>Post Recipe</button>
+            </div>
 
            
             </div>

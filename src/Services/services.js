@@ -35,12 +35,31 @@ class Services extends Component {
 
     
     async Login(email, password) {
+        let token = localStorage.getItem("token");
         let data ={
             email: email,
             password: password
         }
         // console.log(" ULR =>", this.URL())
        const data_1 = await axios(this.URL() + 'userLogin', {
+            method: 'POST',
+            data: data,
+            headers: {
+                'Authorization': "token "+token,
+                'Content-Type': 'application/json'
+            }
+        });
+        return data_1;
+    }
+
+    async postRecipe(name, steps, userID) {
+        let data ={
+            name: name,
+            steps: steps,
+            userID: userID
+        }
+        // console.log(" ULR =>", this.URL())
+       const data_1 = await axios(this.URL() + 'postRecipe', {
             method: 'POST',
             data: data,
             headers: {

@@ -33,8 +33,9 @@ class Login extends Component {
                 loginCheck: false
             })
          }
+     }).catch((err) => {    
+        console.log(err)
      })
-
     }
     render() {
        
