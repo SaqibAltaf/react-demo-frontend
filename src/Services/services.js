@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+let token = localStorage.getItem("token");
+axios.defaults.headers.common = {'Authorization': token}
 
 
 class Services extends Component {
@@ -35,24 +37,21 @@ class Services extends Component {
 
     
     async Login(email, password) {
-        let token = localStorage.getItem("token");
         let data ={
             email: email,
             password: password
         }
         // console.log(" ULR =>", this.URL())
+       
        const data_1 = await axios(this.URL() + 'userLogin', {
             method: 'POST',
-            data: data,
-            headers: {
-                'Authorization': "token "+token,
-                'Content-Type': 'application/json'
-            }
+            data: data,           
         });
         return data_1;
     }
 
     async postRecipe(name, steps, userID) {
+
         let data ={
             name: name,
             steps: steps,
@@ -62,10 +61,6 @@ class Services extends Component {
        const data_1 = await axios(this.URL() + 'postRecipe', {
             method: 'POST',
             data: data,
-            headers: {
-                // 'Authorization': `bearer ${token}`,
-                'Content-Type': 'application/json'
-            }
         });
         return data_1;
     }
