@@ -14,7 +14,7 @@ export default () =>
     <Switch>
       
     <PrivateRoute path="/" exact  component = {Dashboard}  />
-    <PrivateRoute path="/signup" exact component = {Signup}  />
+    <Route path="/signup" exact component = {Signup}  />
     <Route path="/Login" exact component = {Login}  />
     <PrivateRoute path="/dashboard" exact component = {Dashboard}  />
     <PrivateRoute path="/recipe" exact component = {Recipe}  />

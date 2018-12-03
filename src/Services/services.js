@@ -65,6 +65,12 @@ class Services extends Component {
         return data_1;
     }
 
+    getAllRecipe(){
+        return axios(this.URL() + "getAllRecipe");
+    }
+
+  
+
 
 
     render() {

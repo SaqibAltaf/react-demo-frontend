@@ -9,6 +9,7 @@ class Recipe extends Component {
         this.services = new Services();
         this.state = {
             name: "",
+            stepValue: "",
             steps: []
         }
     }
@@ -22,8 +23,16 @@ class Recipe extends Component {
 
     handleSubmit(){
        this.services.postRecipe(this.state.name, this.state.steps).then(data=>{
-           console.log(data)
-       });
+            if(data.status === 200){
+                this.setState({
+                    stepValue: "",
+                    name:"",
+                    steps: []
+                })
+            }
+    }).catch(e => {
+        console.log(e)
+    });
 
     }
 
@@ -31,9 +40,14 @@ class Recipe extends Component {
         var that = this;
         if(event.key === "Enter" && event.target.value !=""){
             let steps = this.state.steps;
-            steps.push(event.target.value);
+            console.log(this.state.stepValue)
+            steps.push(that.state.stepValue);
             that.setState({
                 steps
+            }, () =>{
+                that.setState({
+                    stepValue: ""
+                })
             })
         }
     }
@@ -46,10 +60,17 @@ class Recipe extends Component {
         })
     }
 
+    goDashboard(){
+        this.props.history.push('/dashboard')
+    }
+
     render() {
         return (
             <div className="container">
                 <div className="container">
+                <div className="goDashboard">
+                    <button className="btn btn-primary btnDashboard" onClick={this.goDashboard.bind(this)}>Dashboard</button>
+                </div>
                     <div className="row">
                         <div className="col-md-12">
                             <div className="well well-sm">
@@ -64,7 +85,7 @@ class Recipe extends Component {
                                         <div className="form-group">
                                             <span className="col-md-1 col-md-offset-2 text-center"><i className="fa fa-user bigicon"></i></span>
                                             <div className="col-md-8">
-                                                <input id="steps" name="steps" onKeyPress={this.addRecipe.bind(this)} type="text" placeholder="Recipe Steps" className="form-control" />
+                                                <input id="stepValue" name="stepValue" value={this.state.stepValue} onChange={(e) => this.handleChange(e)} onKeyPress={this.addRecipe.bind(this)} type="text" placeholder="Recipe Steps" className="form-control" />
                                             </div>
                                         </div>
                                         <div className="row">
