@@ -36,7 +36,7 @@ class Dashboard extends Component {
     componentDidMount() {
         this.getAllRecipe();
     }
-    postedBy(id){
+    postedBy(id) {
         this.services.postedBy(id);
     }
     render() {
@@ -45,13 +45,33 @@ class Dashboard extends Component {
         })
 
         return (
+            <React.Fragment>
+
+            <button className="btn btn-primary pull-right logoutBtn" onClick={this.logout.bind(this)} >
+            Logout
+    </button>
             <div className="container">
-                <button className="btn btn-primary pull-right" style={{ marginTop: "30px" }} onClick={this.logout.bind(this)} >
-                    Logout
-            </button>
+                <nav class="navbar navbar-inverse">
+                    <div class="container-fluid">
+                   
+                        <div class="collapse navbar-collapse">
+                            <ul class="nav navbar-nav">
+                                <li class="dropdown dropdown-notifications">
+                                    <a href="#notifications-panel" class="dropdown-toggle" data-toggle="dropdown">
+                                        <i data-count="2" class="glyphicon glyphicon-bell notification-icon"></i>
+                                    </a>
+                                </li>
+
+                                <li><a href="javascript:void(0)" onClick={() => this.postRecipe()}>Post Recipe</a></li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
+
+
                 <h1> Dashboard</h1>
                 <div className="body">
-                    <button className="btn btn-success" onClick={() => this.postRecipe()}>Post Recipe</button>
                 </div>
                 {
                     this.state.recipe.length > 0 ?
@@ -72,7 +92,7 @@ class Dashboard extends Component {
                                                 <h2>Posted By</h2>
                                             </div>
                                             <div className="col-12 col-sm-6 col-md-6 col-lg-6">
-                                                <h3>{val.User[0].name+val.User[0].lastname}</h3>
+                                                <h3>{val.User[0].name + val.User[0].lastname}</h3>
                                             </div>
                                         </div>
                                         <h3>Recipe Steps </h3>
@@ -89,6 +109,8 @@ class Dashboard extends Component {
                 }
 
             </div>
+            </React.Fragment>
+
         );
     }
 }

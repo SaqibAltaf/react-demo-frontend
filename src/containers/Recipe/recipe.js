@@ -23,6 +23,7 @@ class Recipe extends Component {
 
     handleSubmit(){
        this.services.postRecipe(this.state.name, this.state.steps).then(data=>{
+           console.log(data)
             if(data.status === 200){
                 this.setState({
                     stepValue: "",
