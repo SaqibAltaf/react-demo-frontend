@@ -23,10 +23,11 @@ class Dashboard extends Component {
 
     getAllRecipe() {
         this.services.getAllRecipe().then(res => {
-            console.log(res.data)
-            if (res.data.code === 200) {
+            
+            console.log(res)
+            if (res.code === 200) {
                 this.setState({
-                    recipe: res.data.data
+                    recipe: res.data
                 })
             }
 
@@ -39,10 +40,24 @@ class Dashboard extends Component {
     postedBy(id) {
         this.services.postedBy(id);
     }
+    delRecipe(id){
+
+        this.services.delRecipe(id).then(data => {
+            console.log(data)
+            if(data.status ===200){
+                let recipe = this.state.recipe;
+                let index =  recipe.findIndex(x => x._id === id);
+                recipe.splice(index,1)
+                 this.setState({
+                     recipe: recipe
+                 })
+            }
+        });
+    }
     render() {
-        let data = this.state.recipe.map((val, key) => {
-            return <li key={key}>{val.recipeSteps}</li>
-        })
+        // let data = this.state.recipe.map((val, key) => {
+        //     return <li key={key}>{val.recipeSteps}</li>
+        // })
 
         return (
             <React.Fragment>
@@ -51,14 +66,14 @@ class Dashboard extends Component {
             Logout
     </button>
             <div className="container">
-                <nav class="navbar navbar-inverse">
-                    <div class="container-fluid">
+                <nav className="navbar navbar-inverse">
+                    <div className="container-fluid">
                    
-                        <div class="collapse navbar-collapse">
-                            <ul class="nav navbar-nav">
-                                <li class="dropdown dropdown-notifications">
-                                    <a href="#notifications-panel" class="dropdown-toggle" data-toggle="dropdown">
-                                        <i data-count="2" class="glyphicon glyphicon-bell notification-icon"></i>
+                        <div className="collapse navbar-collapse">
+                            <ul className="nav navbar-nav">
+                                <li className="dropdown dropdown-notifications">
+                                    <a href="#notifications-panel" className="dropdown-toggle" data-toggle="dropdown">
+                                        <i data-count="2" className="glyphicon glyphicon-bell notification-icon"></i>
                                     </a>
                                 </li>
 
@@ -79,6 +94,9 @@ class Dashboard extends Component {
                             {this.state.recipe.map((val, key) => {
                                 return (
                                     <div className="col-sm-5 col-lg-5 col-md-5 col-12 recipe" key={key}>
+                                        <button className="btn btn-danger dshboardBtn" onClick={() => this.delRecipe(val._id)}>Remove Recipe</button>
+                                        <button className="btn btn-success dshboardBtn">Edit</button>
+
                                         <div className="row" >
                                             <div className="col-12 col-sm-6 col-md-6 col-lg-6">
                                                 <h2>Recipe</h2>

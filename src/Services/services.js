@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 let token = localStorage.getItem("token");
-axios.defaults.headers.common = {'Authorization': token}
+// axios.defaults.headers.common = {'Authorization': token}
 
 
 class Services extends Component {
@@ -9,8 +9,6 @@ class Services extends Component {
         super(props);
         this.state = {}
     }
-
-
 
     URL(){
         return "http://localhost:3001/api/user/";
@@ -25,14 +23,14 @@ class Services extends Component {
             password: password
         }
         console.log(" ULR =>", this.URL())
-       return axios(this.URL() +'userSignup', {
+       return fetch(this.URL() +'userSignup', {
             method: 'POST',
-            data: data,
+            body: JSON.stringify(data),
             headers: {
                 // 'Authorization': `bearer ${token}`,
                 'Content-Type': 'application/json'
             }
-        });
+        }).then(res => res.json());;
     }
 
     
@@ -43,30 +41,47 @@ class Services extends Component {
         }
         // console.log(" ULR =>", this.URL())
        
-       const data_1 = await axios(this.URL() + 'userLogin', {
+       const data_1 = await fetch(this.URL() + 'userLogin', {
             method: 'POST',
-            data: data,           
-        });
+            body: JSON.stringify(data),           
+        }).then(res => res.json());;
         return data_1;
     }
 
-    async postRecipe(name, steps, userID) {
-
+    async postRecipe(name, steps) {
+        console.log("steps", steps)
+let token = localStorage.getItem('token');
         let data ={
             name: name,
-            steps: steps,
-            userID: userID
+            steps: steps
         }
         // console.log(" ULR =>", this.URL())
-       const data_1 = await axios(this.URL() + 'postRecipe', {
+       const data_1 = await fetch(this.URL() + 'postRecipe', {
             method: 'POST',
-            data: data,
-        });
+            body:  JSON.stringify(data),
+            headers: {
+                'Authorization': token,
+                'X-FP-API-KEY': 'iphone',
+                'Content-Type': 'application/json'
+            }
+        }).then(res => res.json());
+
         return data_1;
     }
 
     getAllRecipe(){
-        return axios(this.URL() + "getAllRecipe");
+        return fetch(this.URL() + "getAllRecipe").then(res => res.json());
+    }
+
+ async delRecipe(id){
+
+ const data_1 = await fetch(this.URL() + 'delRecipe/'+ id, {
+            method: 'DELETE',
+            headers:{
+                'content-type': 'application/json'
+            },
+        }).then(res => res.json());
+        return data_1;
     }
 
   
