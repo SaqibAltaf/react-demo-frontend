@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Service from './../../Services/services';
 import './dashboard.css';
+import io from 'socket.io-client';
 
 class Dashboard extends Component {
     constructor(props) {
@@ -34,8 +35,16 @@ class Dashboard extends Component {
         })
     }
 
+    socket(){
+        var socket = io.connect('http://110.36.177.8:3001');
+        socket.on('connect', function(data) {
+           socket.emit('join', 'Hello World from client');
+        });
+    }
+
     componentDidMount() {
         this.getAllRecipe();
+        this.socket();
     }
     postedBy(id) {
         this.services.postedBy(id);
