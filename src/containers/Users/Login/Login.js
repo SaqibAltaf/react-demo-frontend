@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import './Login.css';
-import {Redirect} from 'react-router';
 import Services from './../../../Services/services';
 
 class Login extends Component {

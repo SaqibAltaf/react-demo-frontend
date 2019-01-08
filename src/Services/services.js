@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import axios from 'axios';
-let token = localStorage.getItem("token");
+// let token = localStorage.getItem(s"token");
 // axios.defaults.headers.common = {'Authorization': token}
 
 
@@ -15,7 +14,7 @@ class Services extends Component {
     }
 
 
-    signUp(name, lastname, email, password) {
+   async signUp(name, lastname, email, password) {
         let data ={
             name: name,
             lastname: lastname,
@@ -23,14 +22,15 @@ class Services extends Component {
             password: password
         }
         console.log(" ULR =>", this.URL())
-       return fetch(this.URL() +'userSignup', {
+       const data1 = await fetch(this.URL() +'userSignup', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
                 // 'Authorization': `bearer ${token}`,
                 'Content-Type': 'application/json'
             }
-        }).then(res => res.json());;
+        }).then(res => res.json());
+        return data1;
     }
 
     

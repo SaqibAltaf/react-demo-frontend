@@ -36,9 +36,11 @@ class Dashboard extends Component {
     }
 
     socket(){
-        var socket = io.connect('http://110.36.177.8:3001');
+        var socket = io.connect('http://192.168.100.12:3001');
         socket.on('connect', function(data) {
-           socket.emit('join', 'Hello World from client');
+            console.log("client connected ", data)
+
+        //    socket.emit('join', 'Hello World from client');
         });
     }
 
@@ -86,7 +88,7 @@ class Dashboard extends Component {
                                     </a>
                                 </li>
 
-                                <li><a href="javascript:void(0)" onClick={() => this.postRecipe()}>Post Recipe</a></li>
+                                <li><button onClick={() => this.postRecipe()}>Post Recipe</button></li>
 
                             </ul>
                         </div>
