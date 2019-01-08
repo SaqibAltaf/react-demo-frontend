@@ -36,12 +36,12 @@ class Dashboard extends Component {
     }
 
     socket(){
-        var socket = io.connect('http://192.168.100.12:3001');
-        socket.on('connect', function(data) {
-            console.log("client connected ", data)
+        var socket = io.connect('http://localhost:3001', { transport : ['websocket'] });
+        socket.on('join', (data) =>{
 
-        //    socket.emit('join', 'Hello World from client');
-        });
+console.log(data)
+        }) 
+
     }
 
     componentDidMount() {
@@ -65,11 +65,14 @@ class Dashboard extends Component {
             }
         });
     }
+
+   
     render() {
         // let data = this.state.recipe.map((val, key) => {
         //     return <li key={key}>{val.recipeSteps}</li>
         // })
 
+   
         return (
             <React.Fragment>
 
@@ -79,7 +82,6 @@ class Dashboard extends Component {
             <div className="container">
                 <nav className="navbar navbar-inverse">
                     <div className="container-fluid">
-                   
                         <div className="collapse navbar-collapse">
                             <ul className="nav navbar-nav">
                                 <li className="dropdown dropdown-notifications">
