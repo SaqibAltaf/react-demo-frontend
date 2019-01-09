@@ -23,30 +23,33 @@ class Dashboard extends Component {
     }
 
     getAllRecipe() {
-        this.services.getAllRecipe().then(res => {
-            
-            console.log(res)
-            if (res.code === 200) {
-                this.setState({
-                    recipe: res.data
-                })
-            }
 
-        })
-    }
 
-    socket(){
         var socket = io.connect('http://localhost:3001', { transport : ['websocket'] });
         socket.on('join', (data) =>{
-
-console.log(data)
+            console.log(data)
         }) 
 
+        socket.on('allrecipe', (data) =>{
+            this.setState({
+                recipe:data
+            })
+        }) 
+
+        // this.services.getAllRecipe().then(res => {
+        //     console.log(res)
+        //     if (res.code === 200) {
+        //         this.setState({
+        //             recipe: res.data
+        //         })
+        //     }
+        // })
     }
+
+    
 
     componentDidMount() {
         this.getAllRecipe();
-        this.socket();
     }
     postedBy(id) {
         this.services.postedBy(id);
