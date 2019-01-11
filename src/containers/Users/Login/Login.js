@@ -24,8 +24,9 @@ class Login extends Component {
     login(){
         let response = this.services.Login(this.state.email, this.state.password);
      response.then(data => {
-         if(data.data.token){
-            localStorage.setItem("token", data.data.token);
+         console.log(data)
+         if(data.token){
+            localStorage.setItem("token", data.token);
            this.props.history.push('/dashboard')
          }else{
             this.setState({

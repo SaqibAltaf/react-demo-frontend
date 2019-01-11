@@ -41,7 +41,6 @@ class Recipe extends Component {
         var that = this;
         if(event.key === "Enter" && event.target.value !==""){
             let steps = this.state.steps;
-            console.log(this.state.stepValue)
             steps.push(that.state.stepValue);
             that.setState({
                 steps

@@ -9,20 +9,20 @@ class Services extends Component {
         this.state = {}
     }
 
-    URL(){
+    URL() {
         return "http://localhost:3001/api/user/";
     }
 
 
-   async signUp(name, lastname, email, password) {
-        let data ={
+    async signUp(name, lastname, email, password) {
+        let data = {
             name: name,
             lastname: lastname,
             email: email,
             password: password
         }
         console.log(" ULR =>", this.URL())
-       const data1 = await fetch(this.URL() +'userSignup', {
+        const data1 = await fetch(this.URL() + 'userSignup', {
             method: 'POST',
             body: JSON.stringify(data),
             headers: {
@@ -33,32 +33,35 @@ class Services extends Component {
         return data1;
     }
 
-    
+
     async Login(email, password) {
-        let data ={
+        let body = {
             email: email,
             password: password
         }
         // console.log(" ULR =>", this.URL())
-       
-       const data_1 = await fetch(this.URL() + 'userLogin', {
+
+        const data_1 = await fetch(this.URL() + 'userLogin', {
             method: 'POST',
-            body: JSON.stringify(data),           
+            body: JSON.stringify(body),
+            headers: {
+                'Content-Type': 'application/json'
+            }
         }).then(res => res.json());;
         return data_1;
     }
 
     async postRecipe(name, steps) {
         console.log("steps", steps)
-let token = localStorage.getItem('token');
-        let data ={
+        let token = localStorage.getItem('token');
+        let data = {
             name: name,
             steps: steps
         }
         // console.log(" ULR =>", this.URL())
-       const data_1 = await fetch(this.URL() + 'postRecipe', {
+        const data_1 = await fetch(this.URL() + 'postRecipe', {
             method: 'POST',
-            body:  JSON.stringify(data),
+            body: JSON.stringify(data),
             headers: {
                 'Authorization': token,
                 'X-FP-API-KEY': 'iphone',
@@ -69,22 +72,43 @@ let token = localStorage.getItem('token');
         return data_1;
     }
 
-    getAllRecipe(){
+    getAllRecipe() {
         return fetch(this.URL() + "getAllRecipe").then(res => res.json());
     }
 
- async delRecipe(id){
+    async delRecipe(id) {
 
- const data_1 = await fetch(this.URL() + 'delRecipe/'+ id, {
+        const data_1 = await fetch(this.URL() + 'delRecipe/' + id, {
             method: 'DELETE',
-            headers:{
+            headers: {
                 'content-type': 'application/json'
             },
         }).then(res => res.json());
         return data_1;
     }
 
-  
+    async getTokenInfo() {
+        const data_1 = await fetch(this.URL() + 'getTokenInfo', {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': localStorage.getItem('token')
+            },
+        }).then(res => res.json());
+        return data_1;
+    }
+    async allUsers() {
+        const data_1 = await fetch(this.URL() + 'allUsers', {
+            method: 'GET',
+            headers: {
+                'content-type': 'application/json',
+                'Authorization': localStorage.getItem('token')
+            },
+        }).then(res => res.json());
+        return data_1;
+    }
+
+
 
 
 

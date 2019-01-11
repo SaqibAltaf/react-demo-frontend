@@ -31,9 +31,17 @@ class Dashboard extends Component {
         }) 
 
         socket.on('allrecipe', (data) =>{
-            this.setState({
+            console.log(data)
+            if(data === null || data === undefined){
+                this.setState({
+                    recipe:[]
+                })
+            }else{
+                 this.setState({
                 recipe:data
             })
+            }
+           
         }) 
 
         // this.services.getAllRecipe().then(res => {
@@ -69,6 +77,9 @@ class Dashboard extends Component {
         });
     }
 
+    chat(){
+        this.props.history.push('/chat');
+    }
    
     render() {
         // let data = this.state.recipe.map((val, key) => {
@@ -94,6 +105,8 @@ class Dashboard extends Component {
                                 </li>
 
                                 <li><button onClick={() => this.postRecipe()}>Post Recipe</button></li>
+                                <li><button onClick={() => this.chat()}>Chat</button></li>
+
 
                             </ul>
                         </div>
@@ -105,7 +118,7 @@ class Dashboard extends Component {
                 <div className="body">
                 </div>
                 {
-                    this.state.recipe.length > 0 ?
+                    this.state.recipe.length > 0  ?
                         <div className="row">
                             {this.state.recipe.map((val, key) => {
                                 return (
